@@ -1,0 +1,45 @@
+jobs:
+- job: build
+  pool: Default
+  # The Windows 7 update process is _very_ slow
+  timeoutInMinutes: 600
+  strategy:
+    maxParallel: 4
+    matrix: 
+      windows_7:
+        template: windows_7
+  steps:
+  # Data is cached in $(Agent.BuildDirectory), which is not cleaned on every checkout.
+  - bash: |
+      lsb_release -a
+      uname -r
+      qemu-system-x86_64 --version
+      packer --version
+      ansible --version
+    displayName: Dump OS, kernel, qemu, packer version
+  - bash: |
+      if groups | grep -q "\bkvm\b"
+      then
+        echo "The user $(whoami) is a member of the kvm group"
+        exit 0
+      else
+        echo "Please add $(whoami) to the kvm  group by running sudo usermod -aG kvm $(whoami)"
+        exit -1
+      fi
+    displayName: Check kvm permissions
+  - bash: |
+      wget -nv -nc https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso -O $(Agent.BuildDirectory)/virtio-win.iso
+    displayName: Download virtio-win iso
+    continueOnError: true
+  - bash: |
+      # Set PACKER_LOG to 1 to troubleshoot infrastructure issues
+      # export PACKER_LOG=1
+      export PACKER_CACHE_DIR=$(Agent.BuildDirectory)/packer_cache/
+      packer build --only=qemu --var virtio_win_iso=$(Agent.BuildDirectory)/virtio-win.iso $(template).json
+    displayName: Build box
+  - bash: |
+      sha256sum $(template)_libvirt.box
+      az storage blob upload --auth-mode=key --account-name=$(AZURE_STORAGE_ACCOUNT) --account-key=$(AZURE_STORAGE_KEY) --container-name boxes --file $(template)_libvirt.box --name $(Build.BuildNumber)/$(template)_libvirt.box
+    displayName: Upload box to Azure Storage
+    # Don't waste too much time uploading artifacts on slow connections
+    timeoutInMinutes: 30
