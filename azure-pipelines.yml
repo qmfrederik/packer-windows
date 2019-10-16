@@ -11,10 +11,13 @@ jobs:
       windows_2019:
         template: windows_2019
   steps:
+  # Data is cached in $(Agent.BuildDirectory), which is not cleaned on every checkout.
   - bash: |
       wget -nv -nc https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso -O $(Agent.BuildDirectory)/virtio-win.iso
     displayName: Download virtio-win iso
     continueOnError: true
   - bash: |
-      PACKER_LOG=1 packer build --only=qemu --var virtio_win_iso=$(Agent.BuildDirectory)/virtio-win.iso $(template).json
+      export PACKER_LOG=1
+      export PACKER_CACHE_DIR=$(Agent.BuildDirectory)/packer_cache/
+      packer build --only=qemu --var virtio_win_iso=$(Agent.BuildDirectory)/virtio-win.iso $(template).json
     displayName: Build box
