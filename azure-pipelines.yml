@@ -12,8 +12,8 @@ jobs:
         template: windows_2019
   steps:
   - bash: |
-      wget -nv -nc https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso -O virtio-win.iso
+      wget -nv -nc https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso -O $(Build.SourcesDirectory)/virtio-win.iso
     displayName: Download virtio-win iso
   - bash: |
-      PACKER_LOG=1 packer build --only=qemu $(template).json
+      PACKER_LOG=1 packer build --only=qemu $(template).json --var virtio_win_iso=$(Build.SourcesDirectory)/virtio-win.iso
     displayName: Build box
