@@ -14,10 +14,6 @@
                  is available as drive E:
             -->
             <DriverPaths>
-                <PathAndCredentials wcm:action="add" wcm:keyValue="1">
-                    <Path>E:\amd64\w7\</Path>
-                </PathAndCredentials>
-
                 <PathAndCredentials wcm:action="add" wcm:keyValue="2">
                     <Path>E:\viostor\w7\amd64</Path>
                 </PathAndCredentials>

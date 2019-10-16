@@ -148,12 +148,8 @@
     }
   ],
   "variables": {
-<<<<<<< HEAD
     "winrm_timeout": "6h",
-    "virtio_win_iso": "/home/quamotion/git/packer-windows/virtio-win.iso"
-=======
-    "winrm_timeout": "6h"
->>>>>>> b4d0bfd... Fixup
+    "virtio_win_iso": "~/virtio-win.iso"
   }
 }
 
