@@ -14,6 +14,7 @@ jobs:
   - bash: |
       wget -nv -nc https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso -O $(Agent.BuildDirectory)/virtio-win.iso
     displayName: Download virtio-win iso
+    continueOnError: true
   - bash: |
       PACKER_LOG=1 packer build --only=qemu --var virtio_win_iso=$(Agent.BuildDirectory)/virtio-win.iso $(template).json
     displayName: Build box
