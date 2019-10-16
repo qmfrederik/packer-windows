@@ -6,6 +6,10 @@ jobs:
     matrix: 
       windows_7:
         template: windows_7
+      windows_10:
+        template: windows_10
+      windows_2019:
+        template: windows_2019
   steps:
   - bash: |
       wget -nv -nc https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso -O virtio-win.iso
