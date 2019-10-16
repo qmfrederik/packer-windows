@@ -1,5 +1,6 @@
 jobs:
 - job: build
+  pool: Default
   strategy:
     matrix: # matrix strategy
     maxParallel: 2
