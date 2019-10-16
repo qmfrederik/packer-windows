@@ -1,0 +1,15 @@
+jobs:
+- job: build
+  strategy:
+    matrix: # matrix strategy
+    maxParallel: 2
+    matrix: 
+      windows_7:
+        template: windows_7
+  steps:
+  - bash: |
+      wget -nv -nc https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso -O virtio-win.iso
+    displayName: Download virtio-win iso
+  - bash: |
+      packer build --only=qemu $(template).json
+    displayName: Build box
