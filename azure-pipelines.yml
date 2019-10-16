@@ -1,6 +1,7 @@
 jobs:
 - job: build
   pool: Default
+  timeoutInMinutes: 120
   strategy:
     maxParallel: 2
     matrix: 
@@ -20,4 +21,10 @@ jobs:
       export PACKER_LOG=1
       export PACKER_CACHE_DIR=$(Agent.BuildDirectory)/packer_cache/
       packer build --only=qemu --var virtio_win_iso=$(Agent.BuildDirectory)/virtio-win.iso $(template).json
+      mkdir -p box/$(template)/
+      mv $(template)_libvirt.box box/$(template)
     displayName: Build box
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: $(Build.SourcesDirectory)/box
+      artifactName: box
