@@ -46,3 +46,5 @@ jobs:
     inputs:
       pathToPublish: $(Build.SourcesDirectory)/box
       artifactName: box
+    # Don't waste too much time uploading artifacts on slow connections
+    timeoutInMinutes: 15
