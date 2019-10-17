@@ -20,7 +20,6 @@
       "iso_url": "{{user `iso_url`}}",
       "memory": 2048,
       "shutdown_command": "a:/sysprep.bat",
-      "switch_name": "{{user `hyperv_switchname`}}",
       "type": "qemu",
       "accelerator": "kvm",
       "output_directory": "windows_2019-qemu",
