@@ -1,7 +1,7 @@
 jobs:
 - job: build
   pool: Default
-  timeoutInMinutes: 120
+  timeoutInMinutes: 180
   strategy:
     maxParallel: 2
     matrix: 
@@ -9,7 +9,9 @@ jobs:
         template: windows_7
       windows_10:
         template: windows_10
-      windows_2019:
+      windows_2019_docker:
+        template: windows_2019_docker
+      windows_2019_docker:
         template: windows_2019
   steps:
   # Data is cached in $(Agent.BuildDirectory), which is not cleaned on every checkout.
