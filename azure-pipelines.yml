@@ -1,7 +1,8 @@
 jobs:
 - job: build
   pool: Default
-  timeoutInMinutes: 180
+  # The Windows 7 update process is _very_ slow
+  timeoutInMinutes: 240
   strategy:
     maxParallel: 4
     matrix: 
@@ -47,4 +48,4 @@ jobs:
       pathToPublish: $(Build.SourcesDirectory)/box
       artifactName: box
     # Don't waste too much time uploading artifacts on slow connections
-    timeoutInMinutes: 15
+    timeoutInMinutes: 30
