@@ -3,7 +3,7 @@ jobs:
   pool: Default
   timeoutInMinutes: 180
   strategy:
-    maxParallel: 2
+    maxParallel: 4
     matrix: 
       windows_7:
         template: windows_7
