@@ -52,8 +52,41 @@ Vagrant.configure("2") do |config|
         v.vmx["hgfs.linkRootShare"] = "FALSE"
     end
     
-    config.vm.provider :libvirt do |libvirt|
+    config.vm.provider :libvirt do |libvirt, override|
         libvirt.memory = 2048
         libvirt.cpus = 2
+
+        # Use WinRM for the default synced folder; or disable it if
+        # WinRM is not available. Linux hosts don't support SMB,
+        # and Windows guests don't support NFS/9P/rsync
+        # See https://github.com/Cimpress-MCP/vagrant-winrm-syncedfolders
+        if Vagrant.has_plugin?("vagrant-winrm-syncedfolders")
+            override.vm.synced_folder ".", "/vagrant", type: "winrm"
+        else
+            override.vm.synced_folder ".", "/vagrant", disabled: true
+        end
+
+        # Enable Hyper-V enlightments, see
+        # https://blog.wikichoon.com/2014/07/enabling-hyper-v-enlightenments-with-kvm.html,
+        # https://github.com/qemu/qemu/blob/master/docs/hyperv.txt (for a complete list)
+        # and https://libvirt.org/formatdomain.html (for the libvirt supported values)
+        libvirt.hyperv_feature :name => 'relaxed',     :state => 'on'
+        libvirt.hyperv_feature :name => 'vapic',       :state => 'on'
+        libvirt.hyperv_feature :name => 'spinlocks',   :state => 'on'
+        libvirt.hyperv_feature :name => 'vpindex',     :state => 'on'
+        libvirt.hyperv_feature :name => 'runtime',     :state => 'on'
+        # libvirt.hyperv_feature :name => 'crash',       :state => 'on'
+        # libvirt.hyperv_feature :name => 'time',        :state => 'on'
+        libvirt.hyperv_feature :name => 'synic',       :state => 'on'
+        libvirt.hyperv_feature :name => 'stimer',      :state => 'on'
+        # libvirt.hyperv_feature :name => 'tlbflush',    :state => 'on'
+        # libvirt.hyperv_feature :name => 'ipi',         :state => 'on'
+        libvirt.hyperv_feature :name => 'reset',       :state => 'on'
+        # libvirt.hyperv_feature :name => 'frequencies', :state => 'on'
+
+        # For nested virtualization only
+        # libvirt.hyperv_feature :name => 'reenlightenment', :state => 'on'
+        # libvirt.hyperv_feature :name => 'evmcs',           :state => 'on'
+        # libvirt.hyperv_feature :name => 'stimer_direct',   :state => 'on'
     end
 end
