@@ -20,7 +20,7 @@ jobs:
       uname -r
       qemu-system-x86_64 --version
       packer --version
-  - displayName: Dump OS, kernel, qemu, packer version
+    displayName: Dump OS, kernel, qemu, packer version
   - bash: |
       if groups | grep -q "\bkvm\b"
       then
