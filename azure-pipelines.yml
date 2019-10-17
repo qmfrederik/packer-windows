@@ -22,15 +22,15 @@ jobs:
       packer --version
   - displayName: Dump OS, kernel, qemu, packer version
   - bash: |
-        if groups | grep -q "\bkvm\b"
-        then
-          echo "The user $(whoami) is a member of the kvm group"
-          exit 0
-        else
-          echo "Please add $(whoami) to the kvm  group by running sudo usermod -aG kvm $(whoami)"
-          exit -1
-        fi
-      displayName: Check kvm permissions
+      if groups | grep -q "\bkvm\b"
+      then
+        echo "The user $(whoami) is a member of the kvm group"
+        exit 0
+      else
+        echo "Please add $(whoami) to the kvm  group by running sudo usermod -aG kvm $(whoami)"
+        exit -1
+      fi
+  displayName: Check kvm permissions
   - bash: |
       wget -nv -nc https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso -O $(Agent.BuildDirectory)/virtio-win.iso
     displayName: Download virtio-win iso
