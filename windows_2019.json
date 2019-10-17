@@ -15,6 +15,7 @@
         "./scripts/sysprep.bat",
         "./scripts/win-updates.ps1"
       ],
+      "headless": true,
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
