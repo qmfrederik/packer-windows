@@ -30,7 +30,7 @@ jobs:
         echo "Please add $(whoami) to the kvm  group by running sudo usermod -aG kvm $(whoami)"
         exit -1
       fi
-  displayName: Check kvm permissions
+    displayName: Check kvm permissions
   - bash: |
       wget -nv -nc https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso -O $(Agent.BuildDirectory)/virtio-win.iso
     displayName: Download virtio-win iso
