@@ -11,7 +11,7 @@ jobs:
         template: windows_10
       windows_2019_docker:
         template: windows_2019_docker
-      windows_2019_docker:
+      windows_2019:
         template: windows_2019
   steps:
   # Data is cached in $(Agent.BuildDirectory), which is not cleaned on every checkout.
