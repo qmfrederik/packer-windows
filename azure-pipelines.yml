@@ -15,6 +15,10 @@ jobs:
       uname -r
       qemu-system-x86_64 --version
       packer --version
+
+      # Be sure to use Ansible 2.7, available from
+      # https://launchpad.net/~ansible/+archive/ubuntu/ansible-2.7,
+      # to avoid issues like https://github.com/hashicorp/packer/issues/7667
       ansible --version
     displayName: Dump OS, kernel, qemu, packer version
   - bash: |
