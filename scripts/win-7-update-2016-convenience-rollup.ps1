@@ -10,7 +10,19 @@ Write-Host "$(Get-Date -Format G): Extracting $update"
 Start-Process -FilePath "wusa.exe" -ArgumentList "C:\Updates\$kbid.msu /extract:C:\Updates" -Wait
 
 Write-Host "$(Get-Date -Format G): Installing $update"
-Start-Process -FilePath "dism.exe" -ArgumentList "/online /add-package /PackagePath:C:\Updates\$kbid.cab /quiet /norestart /LogPath:C:\Windows\Temp\$kbid.log" -Wait
+$process = (Start-Process -FilePath "dism.exe" -ArgumentList "/online /add-package /PackagePath:C:\Updates\$kbid.cab /quiet /norestart /LogPath:C:\Windows\Temp\$kbid.log" -PassThru)
+
+# https://stackoverflow.com/questions/10262231/obtaining-exitcode-using-start-process-and-waitforexit-instead-of-wait#comment71507068_23797762
+$handle = $process.Handle # cache proc.Handle
+
+while ($null -eq $process.ExitCode)
+{
+    Write-Host "$(Get-Date -Format G): Convenience rollup update for Windows 7 is still installing (PID $($process.Id))"
+    Wait-Process -Id $process.Id -Timeout 180 -ErrorAction SilentlyContinue
+    $process.Refresh()
+}
+
+Write-Host "$(Get-Date -Format G): Convenience rollup update for Windows 7 exited with exit code $($process.ExitCode)"
 
 Remove-Item -LiteralPath "C:\Updates" -Force -Recurse
 Write-Host "$(Get-Date -Format G): Finished installing $update. The VM will now reboot and continue the installation process."
