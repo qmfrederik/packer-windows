@@ -16,7 +16,19 @@ Write-Host "$(Get-Date -Format G): Downloading Windows 7 Service Pack 1"
 (New-Object Net.WebClient).DownloadFile("https://download.microsoft.com/download/0/A/F/0AFB5316-3062-494A-AB78-7FB0D4461357/windows6.1-KB976932-X64.exe", "C:\Updates\windows6.1-KB976932-X64.exe")
 
 Write-Host "$(Get-Date -Format G): Installing Windows 7 Service Pack 1"
-Start-Process -FilePath "C:\Updates\Windows6.1-KB976932-X64.exe" -ArgumentList "/unattend /nodialog /norestart" -Wait
+$process = (Start-Process -FilePath "C:\Updates\Windows6.1-KB976932-X64.exe" -ArgumentList "/unattend /nodialog /norestart" -PassThru)
+
+# https://stackoverflow.com/questions/10262231/obtaining-exitcode-using-start-process-and-waitforexit-instead-of-wait#comment71507068_23797762
+$handle = $process.Handle # cache proc.Handle
+
+while ($null -eq $process.ExitCode)
+{
+    Write-Host "$(Get-Date -Format G): Windows 7 Service Pack 1 is still installing (PID $($process.Id))"
+    Wait-Process -Id $process.Id -Timeout 180 -ErrorAction SilentlyContinue
+    $process.Refresh()
+}
+
+Write-Host "$(Get-Date -Format G): Windows 7 Service Pack 1 exited with exit code $($process.ExitCode)"
 
 Remove-Item -LiteralPath "C:\Updates" -Force -Recurse
 
