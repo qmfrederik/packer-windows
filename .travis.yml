@@ -19,6 +19,7 @@ install:
 - sudo add-apt-repository -y ppa:ansible/ansible
 - sudo apt-get update
 - sudo apt-get install -yq --no-install-suggests --no-install-recommends ansible
+- pip install pywinrm
 
 # Install qemu-kvm
 - if [ $PROVIDER == "qemu" ]; then sudo apt-get install -yq --no-install-suggests --no-install-recommends qemu-kvm qemu-utils; fi
