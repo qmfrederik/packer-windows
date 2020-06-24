@@ -199,7 +199,7 @@
     {
       "user": "vagrant",
       "use_proxy": false,
-      "extra_arguments": ["-e", "ansible_winrm_server_cert_validation=ignore", "-e", "ansible_winrm_scheme=http"],
+      "extra_arguments": ["-e", "ansible_winrm_server_cert_validation=ignore"],
       "playbook_file": "./ansible/windows_update_security_updates.yml",
       "type": "ansible"
     },
@@ -210,7 +210,7 @@
     {
       "user": "vagrant",
       "use_proxy": false,
-      "extra_arguments": ["-e", "ansible_winrm_server_cert_validation=ignore", "-e", "ansible_winrm_scheme=http"],
+      "extra_arguments": ["-e", "ansible_winrm_server_cert_validation=ignore"],
       "playbook_file": "./ansible/windows_update.yml",
       "type": "ansible"
     },
