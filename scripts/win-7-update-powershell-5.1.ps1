@@ -27,7 +27,7 @@ Start-Process -FilePath "dism.exe" -ArgumentList "/online /add-package /PackageP
 Start-Process -FilePath "dism.exe" -ArgumentList "/online /add-package /PackagePath:C:\Updates\Windows6.1-KB3191566-x64.cab /quiet /norestart /LogPath:C:\Windows\Temp\KB3191566-x64.log" -Wait
 
 Write-Host "$(Get-Date -Format G): Update for Windows 7 for x64-based Systems (KB3140245)"
-(New-Object Net.WebClient).DownloadFile("hhttp://download.windowsupdate.com/c/msdownload/update/software/updt/2016/04/windows6.1-kb3140245-x64_5b067ffb69a94a6e5f9da89ce88c658e52a0dec0.msu", "C:\Updates\windows6.1-kb3140245-x64.msu")
+(New-Object Net.WebClient).DownloadFile("http://download.windowsupdate.com/c/msdownload/update/software/updt/2016/04/windows6.1-kb3140245-x64_5b067ffb69a94a6e5f9da89ce88c658e52a0dec0.msu", "C:\Updates\windows6.1-kb3140245-x64.msu")
 
 $kbid="windows6.1-kb3140245-x64"
 $update="Update for Windows 7 for x64-based Systems (KB3140245)"
