@@ -1,6 +1,6 @@
 - hosts: all
   tasks:
-  - name: Install only security updates
+  - name: Install security updates, critical updates and update rollups
     win_updates:
       category_names:
       - SecurityUpdates
