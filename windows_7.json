@@ -173,7 +173,15 @@
       "type": "windows-restart"
     },
     {
-      "script": "./scripts/win-7-update-2019-10-update-rollup.ps1",
+      "script": "./scripts/win-7-update-2020-01-update-rollup.ps1",
+      "type": "powershell"
+    },
+    {
+      "restart_timeout": "{{user `restart_timeout`}}",
+      "type": "windows-restart"
+    },
+    {
+      "script": "./scripts/win-7-update-2020-06-servicing-stack.ps1",
       "type": "powershell"
     },
     {

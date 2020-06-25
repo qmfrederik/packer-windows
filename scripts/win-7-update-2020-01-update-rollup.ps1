@@ -1,10 +1,10 @@
 New-Item -Path "C:\" -Name "Updates" -ItemType Directory
 
 Write-Host "$(Get-Date -Format G): Downloading October 2019 Update Rollup for Windows 7"
-(New-Object Net.WebClient).DownloadFile("http://download.windowsupdate.com/c/msdownload/update/software/secu/2019/10/windows6.1-kb4519976-x64_58dae3b116e5c3f2e3d8e2623fd50d561601e145.msu", "C:\Updates\windows6.1-kb4519976-x64.msu")
+(New-Object Net.WebClient).DownloadFile("http://download.windowsupdate.com/c/msdownload/update/software/secu/2020/01/windows6.1-kb4534310-x64_4dc78a6eeb14e2eac1ede7381f4a93658c8e2cdc.msu", "C:\Updates\windows6.1-kb4534310-x64.msu")
 
-$kbid="windows6.1-kb4519976-x64"
-$update="October 2019 Update Rollup for Windows 7"
+$kbid="windows6.1-kb4534310-x64"
+$update="January 2020 Update Rollup for Windows 7"
 
 Write-Host "$(Get-Date -Format G): Extracting $update"
 Start-Process -FilePath "wusa.exe" -ArgumentList "C:\Updates\$kbid.msu /extract:C:\Updates" -Wait
