@@ -7,4 +7,7 @@ Write-Host "$(Get-Date -Format G): Installing .NET Framework 4.8"
 Start-Process -FilePath "C:\Updates\ndp48-x86-x64-allos-enu.exe" -ArgumentList "/quiet /norestart" -Wait
 
 Remove-Item -LiteralPath "C:\Updates" -Force -Recurse
+Get-PSDrive -PSProvider FileSystem
+Get-ComputerRestorePoint
+
 Write-Host "$(Get-Date -Format G): Finished installing .NET Framework 4.8. The VM will now reboot and continue the installation process."

@@ -26,6 +26,8 @@ Start-Process -FilePath "dism.exe" -ArgumentList "/online /add-package /PackageP
 Start-Process -FilePath "dism.exe" -ArgumentList "/online /add-package /PackagePath:C:\Updates\Windows6.1-KB3033929-x64.cab /quiet /norestart /LogPath:C:\Windows\Temp\KB3033929-x64.log" -Wait
 Start-Process -FilePath "dism.exe" -ArgumentList "/online /add-package /PackagePath:C:\Updates\Windows6.1-KB3191566-x64.cab /quiet /norestart /LogPath:C:\Windows\Temp\KB3191566-x64.log" -Wait
 
-# Remove-Item -LiteralPath "C:\Updates" -Force -Recurse
+Remove-Item -LiteralPath "C:\Updates" -Force -Recurse
+Get-PSDrive -PSProvider FileSystem
+Get-ComputerRestorePoint
 
 Write-Host "$(Get-Date -Format G): Finished installing Windows Management Framework 5.1. The VM will now reboot and continue the installation process."

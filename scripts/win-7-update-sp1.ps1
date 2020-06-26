@@ -31,6 +31,8 @@ while ($null -eq $process.ExitCode)
 Write-Host "$(Get-Date -Format G): Windows 7 Service Pack 1 exited with exit code $($process.ExitCode)"
 
 Remove-Item -LiteralPath "C:\Updates" -Force -Recurse
+Get-PSDrive -PSProvider FileSystem
+Get-ComputerRestorePoint
 
 Write-Host "$(Get-Date -Format G): Finished installing Windows 7 Service Pack 1. The VM will now reboot and continue the installation process."
 Write-Host "$(Get-Date -Format G): This may take a couple of minutes."

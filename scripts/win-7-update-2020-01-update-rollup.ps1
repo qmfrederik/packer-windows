@@ -13,4 +13,7 @@ Write-Host "$(Get-Date -Format G): Installing $update"
 Start-Process -FilePath "dism.exe" -ArgumentList "/online /add-package /PackagePath:C:\Updates\$kbid.cab /quiet /norestart /LogPath:C:\Windows\Temp\$kbid.log" -Wait
 
 Remove-Item -LiteralPath "C:\Updates" -Force -Recurse
+Get-PSDrive -PSProvider FileSystem
+Get-ComputerRestorePoint
+
 Write-Host "$(Get-Date -Format G): Finished installing $update. The VM will now reboot and continue the installation process."

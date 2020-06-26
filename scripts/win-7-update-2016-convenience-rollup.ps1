@@ -25,4 +25,7 @@ while ($null -eq $process.ExitCode)
 Write-Host "$(Get-Date -Format G): Convenience rollup update for Windows 7 exited with exit code $($process.ExitCode)"
 
 Remove-Item -LiteralPath "C:\Updates" -Force -Recurse
+Get-PSDrive -PSProvider FileSystem
+Get-ComputerRestorePoint
+
 Write-Host "$(Get-Date -Format G): Finished installing $update. The VM will now reboot and continue the installation process."
