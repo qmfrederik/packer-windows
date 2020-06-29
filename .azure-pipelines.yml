@@ -45,7 +45,7 @@ jobs:
       packer build --only=virtualbox-iso --var virtio_win_iso=$(Agent.BuildDirectory)/virtio-win.iso --var memory=6144 $(template).json
     displayName: Build box
   - bash: |
-      sha256sum $(template)_libvirt.box
+      shasum -a 256 $(template)_libvirt.box
       az storage blob upload --auth-mode=key --account-name=$(AZURE_STORAGE_ACCOUNT) --account-key=$(AZURE_STORAGE_KEY) --container-name boxes --file $(template)_virtualbox.box --name $(Build.BuildNumber)/$(template)_virtualbox.box
     displayName: Upload box to Azure Storage
     # Don't waste too much time uploading artifacts on slow connections
