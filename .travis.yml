@@ -6,7 +6,7 @@ jobs:
     include:
     - env: PROVIDER=qemu TEMPLATE=windows_7 VIRT_GROUP=kvm
     - env: PROVIDER=qemu TEMPLATE=windows_10 VIRT_GROUP=kvm
-    - env: PROVIDER=qemu TEMPLATE=windows_2019_docker VIRT_GROUP=kvm
+    - env: PROVIDER=qemu TEMPLATE=windows_2019_core VIRT_GROUP=kvm
 
 install:
 # Install Packer. Travis ships with Packer 1.3, which is fairly old

@@ -10,8 +10,8 @@ jobs:
         template: windows_7
       windows_10:
         template: windows_10
-      windows_server_2019_docker:
-        template: windows_2019_docker
+      windows_server_2019_core:
+        template: windows_2019_core
   steps:
   - bash: |
       wget -nv -nc -O packer_1.6.0_darwin_amd64.zip https://releases.hashicorp.com/packer/1.6.0/packer_1.6.0_darwin_amd64.zip
