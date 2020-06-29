@@ -5,6 +5,9 @@ dist: bionic
 jobs:
     include:
     - env: PROVIDER=qemu TEMPLATE=windows_7 VIRT_GROUP=kvm
+    - env: PROVIDER=qemu TEMPLATE=windows_10 VIRT_GROUP=kvm
+    - env: PROVIDER=qemu TEMPLATE=windows_server_2019_docker VIRT_GROUP=kvm
+    - env: PROVIDER=qemu TEMPLATE=windows_server_2004 VIRT_GROUP=kvm
 
 install:
 # Install Packer. Travis ships with Packer 1.3, which is fairly old
@@ -19,6 +22,12 @@ install:
 
 # Install qemu-kvm
 - if [ $PROVIDER == "qemu" ]; then sudo apt-get install -yq --no-install-suggests --no-install-recommends qemu-kvm qemu-utils; fi
+
+# Install Azure CLI
+- AZ_REPO=$(lsb_release -cs) && echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list
+- curl -L https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+- sudo apt-get install apt-transport-https
+- sudo apt-get update && sudo apt-get install -yq --no-install-suggests --no-install-recommends azure-cli
 
 # Set up group membership
 - sudo adduser $USER $VIRT_GROUP
@@ -52,3 +61,6 @@ script:
 - wget -nv -nc https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso -O ~/virtio-win.iso
 # See here https://github.com/travis-ci/travis-ci/issues/1839 for background on the sudo sudo command
 - sudo -E su $USER -c 'packer build --only=${PROVIDER} --var disk_size=30720 --var virtio_win_iso=~/virtio-win.iso ${TEMPLATE}.json'
+# Upload the resulting box to Azure Storage
+- sha256sum $(template)_libvirt.box
+- az storage blob upload --auth-mode=key --account-name=${AZURE_STORAGE_ACCOUNT} --account-key=${AZURE_STORAGE_KEY} --container-name boxes --file ${TEMPLATE}_libvirt.box --name ${TRAVIS_JOB_ID}/${TEMPLATE}_libvirt.box

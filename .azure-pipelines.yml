@@ -8,6 +8,12 @@ jobs:
     matrix: 
       windows_7:
         template: windows_7
+      windows_10:
+        template: windows_10
+      windows_server_2019_docker:
+        template: windows_server_2019_docker
+      windows_server_2004:
+        template: windows_server_2004
   steps:
   - bash: |
       wget -nv -nc -O packer_1.6.0_darwin_amd64.zip https://releases.hashicorp.com/packer/1.6.0/packer_1.6.0_darwin_amd64.zip
@@ -40,3 +46,9 @@ jobs:
       export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
       packer build --only=virtualbox-iso --var virtio_win_iso=$(Agent.BuildDirectory)/virtio-win.iso $(template).json
     displayName: Build box
+  - bash: |
+      sha256sum $(template)_libvirt.box
+      az storage blob upload --auth-mode=key --account-name=$(AZURE_STORAGE_ACCOUNT) --account-key=$(AZURE_STORAGE_KEY) --container-name boxes --file $(template)_virtualbox.box --name $(Build.BuildNumber)/$(template)_virtualbox.box
+    displayName: Upload box to Azure Storage
+    # Don't waste too much time uploading artifacts on slow connections
+    timeoutInMinutes: 30
