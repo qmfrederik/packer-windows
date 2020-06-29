@@ -44,7 +44,7 @@ jobs:
       # See https://github.com/ansible/ansible/issues/49207
       # See https://github.com/ansible/ansible/issues/32499
       export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
-      packer build --only=virtualbox-iso --var virtio_win_iso=$(Agent.BuildDirectory)/virtio-win.iso $(template).json
+      packer build --only=virtualbox-iso --var virtio_win_iso=$(Agent.BuildDirectory)/virtio-win.iso --var memory=6144 $(template).json
     displayName: Build box
   - bash: |
       sha256sum $(template)_libvirt.box
