@@ -246,7 +246,8 @@
     "restart_timeout": "20m",
     "virtio_win_iso": "~/virtio-win.iso",
     "vm_name": "windows_7",
-    "winrm_timeout": "6h"
+    "winrm_timeout": "6h",
+    "memory": "2048"
   }
 }
 

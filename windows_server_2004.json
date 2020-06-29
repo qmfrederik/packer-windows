@@ -18,7 +18,7 @@
       "headless": true,
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_url": "{{user `iso_url`}}",
-      "memory": 2048,
+      "memory": "{{user `memory`}}",
       "output_directory": "windows_2019_docker-qemu",
       "qemuargs": [
         [
@@ -180,6 +180,7 @@
     "vhv_enable": "false",
     "winrm_timeout": "2h",
     "virtio_win_iso": "~/virtio-win.iso",
+    "memory": "2048"
   }
 }
 

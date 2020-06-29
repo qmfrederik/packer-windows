@@ -243,6 +243,7 @@
     "vhv_enable": "false",
     "virtio_win_iso": "~/virtio-win.iso",
     "vm_name": "windows_10",
-    "winrm_timeout": "6h"
+    "winrm_timeout": "6h",
+    "memory": "2048"
   }
 }

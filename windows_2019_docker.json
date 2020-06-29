@@ -244,7 +244,9 @@
     "manually_download_iso_from": "https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2019",
     "restart_timeout": "5m",
     "vhv_enable": "false",
-    "winrm_timeout": "6h"
+    "winrm_timeout": "6h",
+    "virtio_win_iso": "~/virtio-win.iso",
+    "memory": "2048"
   }
 }
 
