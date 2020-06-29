@@ -6,7 +6,7 @@ jobs:
     include:
     - env: PROVIDER=qemu TEMPLATE=windows_7 VIRT_GROUP=kvm
     - env: PROVIDER=qemu TEMPLATE=windows_10 VIRT_GROUP=kvm
-    - env: PROVIDER=qemu TEMPLATE=windows_server_2019_docker VIRT_GROUP=kvm
+    - env: PROVIDER=qemu TEMPLATE=windows_2019_docker VIRT_GROUP=kvm
     - env: PROVIDER=qemu TEMPLATE=windows_server_2004 VIRT_GROUP=kvm
 
 install:
