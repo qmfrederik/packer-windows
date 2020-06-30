@@ -18,11 +18,11 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_url": "{{user `iso_url`}}",
       "memory": "{{user `memory`}}",
-      "output_directory": "windows_2019_docker-qemu",
+      "output_directory": "windows_2019_core-qemu",
       "qemuargs": [
         [
           "-drive",
-          "file=windows_2019-qemu/{{ .Name }},if=virtio,cache=writeback,discard=ignore,format=qcow2,index=1"
+          "file=windows_2019_core-qemu/{{ .Name }},if=virtio,cache=writeback,discard=ignore,format=qcow2,index=1"
         ],
         [
           "-drive",
@@ -31,7 +31,7 @@
       ],
       "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
       "type": "qemu",
-      "vm_name": "WindowsServer2019Docker",
+      "vm_name": "WindowsServer2019Core",
       "winrm_password": "vagrant",
       "winrm_timeout": "{{user `winrm_timeout`}}",
       "winrm_username": "vagrant"
